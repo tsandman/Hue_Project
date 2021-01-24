@@ -1,0 +1,3 @@
+/home/tsandman/repos/hue_project/build/CMakeFiles/rebuild_cache.dir
+/home/tsandman/repos/hue_project/build/CMakeFiles/edit_cache.dir
+/home/tsandman/repos/hue_project/build/CMakeFiles/Hue_Project.dir

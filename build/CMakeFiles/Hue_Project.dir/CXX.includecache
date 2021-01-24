@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/tsandman/repos/hue_project/main.cpp
+my_curl.hpp
+/home/tsandman/repos/hue_project/my_curl.hpp
+jsoncpp/json/json.h
+-
+sstream
+-
+
+/home/tsandman/repos/hue_project/my_curl.hpp
+string
+-
+iostream
+-
+fstream
+-
+stdexcept
+-
+memory
+-
+string.h
+-
+curl/curl.h
+-
+
