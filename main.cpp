@@ -29,24 +29,34 @@ int main()
     for ( auto const& id : json.getMemberNames() )  
     {
         std::string rawName = Json::writeString( builder, json[id]["name"] );
-        state[lightIdx]["name"] = .erase( remove( s.begin(), s.end(), '\"' ),
-    s.end()
-    );
+        
+        //TODO make func
+        size_t pos = 0;
+        while ((pos = rawName.find('"', pos)) != std::string::npos)
+            rawName = rawName.erase(pos, 1);
+
+        state[lightIdx]["name"] = rawName;
+
         state[lightIdx]["id"] = atoi( id.c_str() );
         
+        URL_base = "http://" + ip_hue + "/api/newdeveloper/lights/" + id;
+        curl.SetOpt_URL( URL_base );
+        std::stringstream sstr(curl.RequestGet());
+
+        Json::Value idInfo;
+        sstr >> idInfo;
+        std::cout << "\nLight " + id + ":\n";
+        std::cout << idInfo.toStyledString() << std::endl;
+
+        state[lightIdx]["on"] = idInfo["state"]["on"];
+        state[lightIdx]["brightness"] = idInfo["state"]["bri"];
+
         lightIdx++;
     }
     
     std::cout << "\nState:\n";
     std::cout << state.toStyledString() << std::endl;
-    //"name":"Red Lamp",
-    // "id":"1",
-    // "on":true,
-    // "brightness":45
 
-    //const char *key = argv[2];
-    //const char *value = argv[3];
-    //string cmd = string( "{\"" ) + key + "\":" + value + "}";
     //curl.SetOpt_READDATA( cmd );
     //cout << curl.RequestPut() << endl;
 
