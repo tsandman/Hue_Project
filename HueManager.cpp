@@ -18,6 +18,7 @@ lightsURL( "http://" + ip_hue + "/api/" + hueUsernameIn + "/lights" )
     stateDictFormat = { "name", "id", "on", "brightness" };
 }
 
+//Requests Hue Information and updates state member
 void HueManager::UpdateState( bool flagPrint )
 {
     //Request Hue Information from Hue API
@@ -49,8 +50,6 @@ void HueManager::UpdateState( bool flagPrint )
 
         Json::Value idInfo;
         ss_idInfo >> idInfo;
-        //std::cout << "\nLight " + id + ":\n";
-        //std::cout << idInfo.toStyledString() << std::endl;
 
         //Fill on & brightness
         state[lightIdx]["on"] = idInfo["state"]["on"];
@@ -69,6 +68,7 @@ void HueManager::UpdateState( bool flagPrint )
     }
 }
 
+//Compares light to previous state and prints the delta
 void HueManager::PrintStateChange()
 {
     for ( int lightIdx = 0; lightIdx < numLightsDetected; lightIdx++ )
@@ -90,20 +90,16 @@ void HueManager::PrintStateChange()
         if ( changeFlag )
         {
             stateChange[lightIdx]["id"] = state[lightIdx]["id"];
-            
-            //std::cout << formatStateString( stateChange[lightIdx] ) << std::endl;
-            //std::cout << stateChange.toStyledString() << std::endl;
         }
     }
 }
 
+//Changes order of Json keys for printout
 std::string HueManager::sortedStr( Json::Value & value, std::vector<std::string> sortKeys, int vecLen ) 
 {
     Json::Value sortedValue;  // The JSON object to store the new (sorted) hash
     std::string result;
     char newKey[60];
-
-    
 
     if ( vecLen > 0 )
     {
@@ -157,21 +153,25 @@ std::string HueManager::sortedStr( Json::Value & value, std::vector<std::string>
     return result;
 }
 
+//Formats state string in proper order
 std::string HueManager::formatStateString( Json::Value& value )
 {
     std::vector<string> attrVec;
     std::vector<string> attrVecOut;
+
 
     for ( auto const& stateAttribute : value.getMemberNames() )  
     {
         attrVec.push_back( stateAttribute );
         auto itr = std::find( attrVec.begin(), attrVec.end(), stateAttribute );
         
+        /* can be deleted
         if (itr == attrVec.end()) 
         {
             auto itr = std::find( attrVec.begin(), attrVec.end(), stateAttribute );
             attrVec.erase(itr);
         }
+        */
     }
 
     //for ( std::vector<std::string>::iterator it = stateDictFormat.begin(); it != stateDictFormat.end(); it++ )

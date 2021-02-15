@@ -1,5 +1,6 @@
 #include "Utility.h"
 
+//Removes quotes from input string
 void Utility::formatStateString( std::string& stringIn )
 {
     size_t pos = 0;

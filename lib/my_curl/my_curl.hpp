@@ -1,4 +1,6 @@
 // my_curl.hpp written by JaeHyukKwak
+// Modified to add Hue Bridge Exception Handling - Tyler Sandman
+
 #include <string>
 #include <iostream> // cout, cerr
 #include <fstream> // ifstream
@@ -38,7 +40,7 @@ private:
         SetOpt_( CURLOPT_UPLOAD, post );
         const CURLcode res = curl_easy_perform( curl_.get() );
         if ( CURLE_OK != res )
-            throw runtime_error( string( "curl_easy_perform() failed: " ) + curl_easy_strerror( res ) );
+            throw runtime_error( string( "ERROR: check for incorrectcurl_easy_perform() failed: " ) + curl_easy_strerror( res ) );
         const string htmlCopied = html_;
         html_.clear();
         return htmlCopied;
